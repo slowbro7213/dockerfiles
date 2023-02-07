@@ -5,7 +5,7 @@ LABEL maintainer "python crontab"
 ARG CRON_PATH=/etc/cron.d
 ARG CRON_JOB=${CRON_PATH}/test-job.sh
 
-# install python base
+# install packages
 RUN apt update -y \
     && apt install -y --no-install-recommends \
         cron \
