@@ -6,11 +6,18 @@ ARG CRON_PATH=/etc/cron.d
 ARG CRON_JOB=${CRON_PATH}/test-job.sh
 
 # packages
-RUN apt update -y \
+RUN apt update -y && apt upgrade -y \
     && apt install -y --no-install-recommends \
         cron \
+        tzdata \
         vim \
-        software-properties-common 
+        software-properties-common \
+    && ln -fs /usr/share/zoneinfo/Asia/Seoul /etc/localtime
+
+# example sync time with host
+# docker run ... \
+#     -v /etc/localtime:/etc/localtime:ro
+#     ...
 
 # requirements
 RUN python3 -m pip install numpy==1.19.5 \
@@ -29,6 +36,6 @@ RUN mkdir -p ${CRON_PATH} \
 # crontab
 RUN echo "* * * * * $(whoami) ${CRON_JOB}" >> /etc/crontab
 
-# flag "-f" is required.
+# flag "-f" is required (foreground execution).
 CMD ["cron", "-f"]
- 
+
