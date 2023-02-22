@@ -20,10 +20,10 @@ RUN apt update -y && apt upgrade -y \
 #     ...
 
 # requirements
-RUN python3 -m pip install numpy==1.19.5 \
-    && python3 -m pip install pandas==1.1.5 \
-    && python3 -m pip install pyyaml \
-    && python3 -m pip install elasticsearch==8.6.0
+RUN python -m pip install numpy==1.19.5 \
+    && python -m pip install pandas==1.1.5 \
+    && python -m pip install pyyaml \
+    && python -m pip install elasticsearch==8.6.0
 
 # cron job script
 RUN mkdir -p ${CRON_PATH} \
