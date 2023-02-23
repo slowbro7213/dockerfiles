@@ -11,6 +11,7 @@ from src.common import fileutil
 
 
 ARG_DAEMON = None
+ARG_DEBUG = None
 
 
 def set_argument():
@@ -24,14 +25,17 @@ def set_argument():
         raise Exception('Error: invalid args. --daemon|-d: no, start or stop')
 
     global ARG_DAEMON
+    global ARG_DEBUG
     ARG_DAEMON = args.daemon.lower()
+    ARG_DEBUG = args.debug
 
 
 if __name__ == '__main__':
 
     log = logger.get_logger()
-
     set_argument()
+    if ARG_DEBUG:
+        log = logger.set_level_to_debug()
     pid.remove_old_pidfile()
 
     if ARG_DAEMON == 'no':
