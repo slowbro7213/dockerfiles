@@ -18,6 +18,7 @@ RUN apt update -y && apt upgrade -y \
 # python package requirements
 RUN python3 -m pip install python-dateutil \
     && python3 -m pip install python-daemon \
+    && python3 -m pip install apscheduler \
     && python3 -m pip install pyyaml
 
 # WORKDIR (project home)
