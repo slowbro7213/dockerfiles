@@ -12,7 +12,8 @@ RUN apt update -y && apt upgrade -y \
         tzdata \
         vim \
         software-properties-common \
-    && ln -fs /usr/share/zoneinfo/Asia/Seoul /etc/localtime
+    && ln -fs /usr/share/zoneinfo/Asia/Seoul /etc/localtime \
+    && echo "Asia/Seoul" > /etc/timezone
 
 # example sync time with host
 # docker run ... \
