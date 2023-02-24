@@ -13,3 +13,5 @@ javabuild
 python-cron
 -------------
 ###### python 및 cron
+* apscheduler: pythonn 패키지 사용
+* service: 컨테이너 내부 cron 사용
