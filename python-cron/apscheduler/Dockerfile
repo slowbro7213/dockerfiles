@@ -13,8 +13,9 @@ RUN apt update -y && apt upgrade -y \
         tzdata \
     && apt-get install -y --no-install-recommends python3-pip \
     && echo "alias python=python3" >> ~/.bashrc \
-    && ln -fs /usr/share/zoneinfo/Asia/Seoul /etc/localtime
-
+    && ln -fs /usr/share/zoneinfo/Asia/Seoul /etc/localtime \
+    && echo "Asia/Seoul" > /etc/timezone
+    
 # python package requirements
 RUN python3 -m pip install python-dateutil \
     && python3 -m pip install python-daemon \
