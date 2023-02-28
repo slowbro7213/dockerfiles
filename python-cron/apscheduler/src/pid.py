@@ -28,7 +28,7 @@ def exist_process():
 
     file_pid = get_pid()
     if file_pid == None:
-        raise FileNotFoundError(f'{PID_PATH} is not found.')
+        return False
     try:
         os.kill(file_pid, 0)
     except OSError:
