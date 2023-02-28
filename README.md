@@ -12,7 +12,7 @@ javabuild
 
 python-cron
 -------------
-###### python 및 cron
+###### python 애플리케이션의 배치 사용
 * apscheduler: pythonn 패키지 사용
   * 컨테이너 실행 시 -e TZ 로 timezone 맞출 것.
   * 함수 사용 안정적.
