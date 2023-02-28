@@ -18,7 +18,6 @@ RUN apt update -y && apt upgrade -y \
     
 # python package requirements
 RUN python3 -m pip install python-dateutil \
-    && python3 -m pip install python-daemon \
     && python3 -m pip install apscheduler \
     && python3 -m pip install pyyaml
 
@@ -26,8 +25,11 @@ RUN python3 -m pip install python-dateutil \
 RUN mkdir ${PROJECT_HOME} \
     && mkdir -p ${PROJECT_HOME}/logs \
     && mkdir -p ${PROJECT_HOME}/conf \
-    && mkdir -p ${PROJECT_HOME}/src
+    && mkdir -p ${PROJECT_HOME}/src \
+    && mkdir -p ${PROJECT_HOME}/sbin
 COPY main.py ${PROJECT_HOME}
 COPY src/. ${PROJECT_HOME}/src
+COPY sbin/. ${PROJECT_HOME}/sbin
 
 WORKDIR ${PROJECT_HOME}
+CMD [ "/bin/bash", "./sbin/start-daemon.sh" ]
