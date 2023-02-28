@@ -5,7 +5,6 @@ import daemon
 from daemon import pidfile
 
 from src import logger
-from src import pid
 
 from src.common import fileutil
 
