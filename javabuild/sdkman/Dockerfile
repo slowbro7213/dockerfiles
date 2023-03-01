@@ -13,4 +13,7 @@ RUN apt update -y && apt upgrade -y \
     && curl -o ${INSTALL_SH} -s -k 'https://get.sdkman.io' \
     && sed -i 's/curl -/curl -k -/' ${INSTALL_SH} \
     && chmod +x ${INSTALL_SH} \
-    && /bin/bash ${INSTALL_SH}
+    && /bin/bash ${INSTALL_SH} \
+    && mkdir -p ${WORKSPACE}
+
+WORKDIR ${WORKSPACE}
