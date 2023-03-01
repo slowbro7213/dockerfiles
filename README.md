@@ -8,7 +8,10 @@ hadoop
 
 javabuild
 -------------
-###### gradle 을 사용한 java 빌드
+###### java 빌드 및 관련 도구
+* jdk1.8-gradle6
+* sdkman
+  * 설치 스크립트에서 SSL 미사용 하도록 처리.
 
 python-cron
 -------------
