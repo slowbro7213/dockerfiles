@@ -14,6 +14,7 @@ RUN apt update -y && apt upgrade -y \
     && sed -i 's/curl -/curl -k -/' ${INSTALL_SH} \
     && chmod +x ${INSTALL_SH} \
     && /bin/bash ${INSTALL_SH} \
+    && sed -i 's/sdkman_insecure_ssl=false/sdkman_insecure_ssl=true/' ${SDKMAN_DIR}/etc/config \
     && mkdir -p ${WORKSPACE}
 
 WORKDIR ${WORKSPACE}
