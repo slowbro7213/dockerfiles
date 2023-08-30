@@ -1,5 +1,5 @@
 FROM ubuntu:22.04
-LABEL maintainer="slowbro"
+LABEL maintainer "Neouly"
 
 
 # Base
@@ -20,6 +20,15 @@ RUN ln -fs /usr/share/zoneinfo/Asia/Seoul /etc/localtime \
 ENV SDKMAN_DIR="/usr/local/sdkman"
 SHELL ["/bin/bash", "-c"]
 RUN curl -s "https://get.sdkman.io" | bash
-RUN chmod +x ${SDKMAN_DIR}"/bin/sdkman-init.sh" \
-    && source ${SDKMAN_DIR}"/bin/sdkman-init.sh"
+RUN chmod +x ${SDKMAN_DIR}"/bin/sdkman-init.sh"
+
+
+# Install SDKs (must be source with sdkman-init.sh)
+RUN source ${SDKMAN_DIR}/bin/sdkman-init.sh && sdk install java 11.0.19-tem && sdk install scala 2.12.17 && sdk install sbt 1.9.4
 SHELL ["/bin/sh", "-c"]
+
+
+# SDK Home
+ENV JAVA_HOME=${SDKMAN_DIR}"/candidates/java/current"
+ENV SCALA_HOME=${SDKMAN_DIR}"/candidates/scala/current"
+ENV SBT_HOME=${SDKMAN_DIR}"/candidates/sbt/current"
