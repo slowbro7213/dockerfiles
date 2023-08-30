@@ -1,20 +1,25 @@
 FROM ubuntu:22.04
-
 LABEL maintainer="slowbro"
-LABEL description="java build with sdkman, ignore SSL certificate"
 
-ENV WORKSPACE=/workspace
-ENV SDKMAN_DIR=/usr/local/sdkman
-ARG INSTALL_SH=/usr/local/sdkman-install.sh
 
-RUN apt update -y && apt upgrade -y \
-    && apt-get install -y --no-install-recommends \
-        zip unzip curl \
-    && curl -o ${INSTALL_SH} -s -k 'https://get.sdkman.io' \
-    && sed -i 's/curl -/curl -k -/' ${INSTALL_SH} \
-    && chmod +x ${INSTALL_SH} \
-    && /bin/bash ${INSTALL_SH} \
-    && sed -i 's/sdkman_insecure_ssl=false/sdkman_insecure_ssl=true/' ${SDKMAN_DIR}/etc/config \
-    && mkdir -p ${WORKSPACE}
+# Base
+USER root
+RUN apt update -y \
+    && apt install -y --no-install-recommends \
+        vim \
+        curl zip unzip ca-certificates \
+        tzdata \
+    && apt-get autoremove -yqq --purge \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
+RUN ln -fs /usr/share/zoneinfo/Asia/Seoul /etc/localtime \
+    && echo "Asia/Seoul" > /etc/timezone
 
-WORKDIR ${WORKSPACE}
+
+# Install SDKMAN
+ENV SDKMAN_DIR="/usr/local/sdkman"
+SHELL ["/bin/bash", "-c"]
+RUN curl -s "https://get.sdkman.io" | bash
+RUN chmod +x ${SDKMAN_DIR}"/bin/sdkman-init.sh" \
+    && source ${SDKMAN_DIR}"/bin/sdkman-init.sh"
+SHELL ["/bin/sh", "-c"]
