@@ -32,3 +32,14 @@ SHELL ["/bin/sh", "-c"]
 ENV JAVA_HOME=${SDKMAN_DIR}"/candidates/java/current"
 ENV SCALA_HOME=${SDKMAN_DIR}"/candidates/scala/current"
 ENV SBT_HOME=${SDKMAN_DIR}"/candidates/sbt/current"
+ENV PATH=${PATH}:${JAVA_HOME}/bin:${SCALA_HOME}/bin:${SBT_HOME}/bin
+
+RUN set -o errexit -o nounset \
+    && echo "Check installed SDK(openjdk, scala, sbt)" \
+    && which java && which javac && java -version && scala -version && sbt -version
+
+
+# Workspace
+RUN mkdir -p /workspace/my-project
+WORKDIR /workspace/my-project
+RUN sbt compile
